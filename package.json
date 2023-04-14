@@ -1,0 +1,21 @@
+{
+  "name": "backend-e-comm",
+  "version": "1.0.0",
+  "description": "backend of e-comm",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/index.js"
+  },
+  "keywords": [
+    "practice"
+  ],
+  "author": "Surendra",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "mongoose": "^7.0.3"
+  }
+}
