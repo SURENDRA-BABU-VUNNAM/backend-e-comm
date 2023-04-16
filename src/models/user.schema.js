@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 import Authroles from "../utils/authroles.js";
 import bcrypt from "bcryptjs"
+import  JWT  from "jsonwebtoken";
+import config from "../config/index.js";
+import crypto from "crypto"
+
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -35,6 +39,25 @@ userSchema.pre("save", async function (next) {
 userSchema.method ={
     comparePassowrd : async function(enteredPassword){
        return await bcrypt.compare(enteredPassword ,this.password)
+    },
+
+    getJWTtoken : function(){
+        JWT.sign({_id: this._id, role: this.role} , config.JWT_SECRET ,
+            {
+                expiresIn : config.JWT_TIME
+            })
+    },
+
+    generateForgotPassword: function (){
+        const forgotPassword = crypto.randomBytes(20).toString("hex")
+        
+        this.forgotPasswordToken = 
+        crypto.createHash("sha256").update(forgotPassword).digest("hex")
+
+        this.forgotPasswordExpiry = date.now() + 20*60*1000
+
+        return forgotPassword
+        
     }
 }
 
